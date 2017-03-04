@@ -1,0 +1,48 @@
+<h2>Show departures</h2>
+
+<ul>
+
+  <li>
+    <strong>T stamp:</strong>
+    <%= @departures.t_stamp %>
+  </li>
+
+  <li>
+    <strong>Origin:</strong>
+    <%= @departures.origin %>
+  </li>
+
+  <li>
+    <strong>Trip:</strong>
+    <%= @departures.trip %>
+  </li>
+
+  <li>
+    <strong>Destination:</strong>
+    <%= @departures.destination %>
+  </li>
+
+  <li>
+    <strong>Scheduled time:</strong>
+    <%= @departures.scheduled_time %>
+  </li>
+
+  <li>
+    <strong>Lateness:</strong>
+    <%= @departures.lateness %>
+  </li>
+
+  <li>
+    <strong>Track:</strong>
+    <%= @departures.track %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @departures.status %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: departures_path(@conn, :edit, @departures) %>
+<%= link "Back", to: departures_path(@conn, :index) %>
