@@ -21,7 +21,9 @@ defmodule ElixirStation.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ElixirStation do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", ElixirStation do
+      pipe_through :api
+
+      get "/board", BoardController, :index
+  end
 end
