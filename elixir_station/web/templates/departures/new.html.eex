@@ -1,6 +1,0 @@
-<h2>New departures</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: departures_path(@conn, :create) %>
-
-<%= link "Back", to: departures_path(@conn, :index) %>
