@@ -10,6 +10,7 @@ defmodule ElixirStation.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, [origin: "http://localhost:3000"]
     plug :accepts, ["json"]
   end
 
@@ -23,6 +24,6 @@ defmodule ElixirStation.Router do
   scope "/api/v1", ElixirStation do
       pipe_through :api
 
-      get "/board", BoardController, :index
+      resources "/board", BoardController
   end
 end

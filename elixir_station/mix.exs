@@ -38,6 +38,7 @@ defmodule ElixirStation.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:csv, "~> 1.4.2"},
+     {:cors_plug, "~> 1.2"},
      {:cowboy, "~> 1.0"}]
   end
 
