@@ -1,9 +1,7 @@
 defmodule ElixirStation.BoardController do
   use ElixirStation.Web, :controller
 
-  alias ElixirStation.Departures
-
-   def index(conn, %{"station" => station} = params) do
+   def index(conn, %{"station" => station}) do
 
       # Some of this should probably be done in the Departures model but I have yet
       #   to figure that out.
