@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import './Departures.css';
 
+// This is the table element for the departures information.
 class Departures extends Component {
 
    constructor(props) {
@@ -36,17 +38,25 @@ class Departures extends Component {
          <table className="departures_table">
             <thead>
                <tr>
-                  <th>TIME</th>
-                  <th>DESTINATION</th>
-                  <th>TRAIN#</th>
-                  <th>TRACK#</th>
-                  <th>STATUS</th>
+                  <th>CARRIER</th>
+                  <th className="th_time">TIME</th>
+                  <th className="th_destination">DESTINATION</th>
+                  <th className="th_train">TRAIN#</th>
+                  <th className="th_track">TRACK#</th>
+                  <th className="th_status">STATUS</th>
                </tr>
             </thead>
             <tbody> 
             { 
                this.state.rows.map((row) => 
-                     <tr><td>{row[0]}</td></tr>)
+                     <tr>
+                        <td className="td_carrier">MBTA</td>
+                        <td className="td_time">{row[6]}</td>
+                        <td className="td_destination">{row[2]}</td>
+                        <td className="td_train">{row[1]}</td>
+                        <td className="td_track">{row[3] ? row[3] : 'TBD'}</td>
+                        <td className="td_status">{row[5]}</td>
+                     </tr>)
             }
             </tbody>
          </table>
