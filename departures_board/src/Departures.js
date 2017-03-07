@@ -8,6 +8,7 @@ class Departures extends Component {
       super(props);
 
       this.state = {
+         selectedStation: props.station,
          json_obj: {},
          rows: []
       };
@@ -29,11 +30,12 @@ class Departures extends Component {
             console.warn('error');
          }
       };
-      request.open('GET', 'http://138.197.120.108:4000/api/v1/board');
+      request.open('GET', 'http://138.197.120.108:4000/api/v1/board/');
       request.send();
    }
 
    render() {
+      var i = 0; // Needs improving but this is just to remove the warning.
       return (
          <table className="departures_table">
             <thead>
@@ -49,13 +51,13 @@ class Departures extends Component {
             <tbody> 
             { 
                this.state.rows.map((row) => 
-                     <tr>
-                        <td className="td_carrier">MBTA</td>
-                        <td className="td_time">{row[6]}</td>
-                        <td className="td_destination">{row[2]}</td>
-                        <td className="td_train">{row[1]}</td>
-                        <td className="td_track">{row[3] ? row[3] : 'TBD'}</td>
-                        <td className="td_status">{row[5]}</td>
+                     <tr key={i++}>
+                        <td className="td_carrier" key={i++}>MBTA</td>
+                        <td  className="td_time" key={i++}>{row[6]}</td>
+                        <td  className="td_destination" key={i++}>{row[2]}</td>
+                        <td  className="td_train" key={i++}>{row[1]}</td>
+                        <td  className="td_track" key={i++}>{row[3] ? row[3] : 'TBD'}</td>
+                        <td  className="td_status" key={i++}>{row[5]}</td>
                      </tr>)
             }
             </tbody>

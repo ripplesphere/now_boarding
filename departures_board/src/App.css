@@ -31,12 +31,18 @@
    font-size: 1.5em;
 }
 
+
+.current_date {
+   text-align: left;
+}
+
+.current_time {
+   text-align: right;
+}
+
 .board_info {
    display: flex;
    justify-content: center;
 }
 
-th {
-   color: #9f9a9e;
-}
 
