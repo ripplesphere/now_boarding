@@ -20,7 +20,9 @@ defmodule ElixirStation.BoardController do
       m = ecto_time |> Enum.map( fn(x) -> "#{x.minute}" end)
       h12 = h |> Enum.map( fn(x) -> cond do String.to_integer(x) > 12 -> Integer.to_string(String.to_integer(x) - 12)
                                              true -> x end end)
-      h12s = h |> Enum.map( fn(x) -> cond do String.to_integer(x) > 12 -> " PM"
+      hm = h |> Enum.map( fn(x) -> cond do String.to_integer(x) == 0 -> "12"
+                                             true -> x end end)
+      h12s = hm|> Enum.map( fn(x) -> cond do String.to_integer(x) > 12 -> " PM"
                                              true -> " AM" end end)
       m2 = m |> Enum.map( fn(x) -> cond do x == "0" -> ":00"
                                              String.to_integer(x) < 10 -> ":0" <> x
