@@ -44,13 +44,3 @@ defmodule ElixirStation.BoardController do
    end
 end
 
-# Work in progress:
-# departures = ElixirStation.Repo.all(ElixirStation.Departures) |> Enum.map(&(Map.take(&1, [:t_stamp, :origin, 
-#   :trip, :destination, :scheduled_time, :lateness, :track, :status])))
-# d_limited = Enum.map(departures, fn(x) -> [x.origin, x.trip, x.destination, x.lateness, x.track, x.status] end)
-#
-#t_stamp = departures |> Enum.at(0) |> Map.get(:t_stamp)
-#
-#ecto_tstamp = DateTime.from_unix!(String.to_integer(t_stamp)
-#
-
