@@ -38,7 +38,7 @@ class App extends Component {
       const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       var hour = date.getHours();
       hour = hour > 12 ? hour - 12 : hour;
-      hour = hour == 0 ? 12 : hour;
+      hour = hour === 0 ? 12 : hour;
       var minute = date.getMinutes();
       minute = minute < 10 ? "0" + minute : minute;
       var half = date.getHours() > 11 ? " PM" : " AM";
