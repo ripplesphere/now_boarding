@@ -10,7 +10,7 @@ defmodule ElixirStation.Router do
   end
 
   pipeline :api do
-    plug CORSPlug, [origin: "http://localhost:3000"]
+    plug CORSPlug, origin: ["http://localhost:3000", "http://138.197.120.108:3000/"]
     plug :accepts, ["json"]
   end
 
