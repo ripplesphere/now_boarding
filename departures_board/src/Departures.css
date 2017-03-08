@@ -24,6 +24,7 @@ th {
    text-align: left;
    padding-left: 20px;
    color: #fffb8b;
+   cursor: pointer;
 }
 .th_train {
    text-align: left;

@@ -8,14 +8,18 @@ class Departures extends Component {
       super(props);
 
       this.state = {
-         json_obj: {},
+         rows_complete: [],
          rows: [],
          selectedStation: ""
       };
+
+      this.clickedDestination= this.clickedDestination.bind(this);
+
    }
 
    loadFromServer() {
       this.setState({ selectedStation: this.props.station });
+      this.setState({ rows_complete: [] }); // reset this variable
       var request = new XMLHttpRequest();
       request.onreadystatechange = (e) => {
          if (request.readyState !== 4) {
@@ -23,9 +27,8 @@ class Departures extends Component {
          }
 
          if (request.status === 200) {
-            console.log('success', request.responseText);
-            this.setState({ json_obj: JSON.parse(request.responseText) });
-            this.setState({ rows: this.state.json_obj.departures });
+            // console.log('success', request.responseText);
+            this.setState({ rows: JSON.parse(request.responseText).departures });
             return;
          } else {
             console.warn('error');
@@ -33,6 +36,29 @@ class Departures extends Component {
       };
       request.open('GET', 'http://138.197.120.108:4000/api/v1/board?station=' + this.props.station);
       request.send();
+   }
+
+   // User selected destination; if all rows showen show only rows of selected desination,
+   //  else display all the rows (logic is other way around)
+   clickedDestination(event) {
+      var destination = event.target.outerText;
+      if (this.state.rows_complete.length > 0) {
+         let tmp_c_rows = []; // save complete dataset 
+         this.state.rows_complete.map((row) =>
+                  tmp_c_rows.push(row)
+               );
+         this.setState({ rows: tmp_c_rows });
+         this.setState({ rows_complete: [] });
+      } else {
+         let tmp_c_rows = []; // save complete dataset 
+         this.state.rows.map((row) =>
+                  tmp_c_rows.push(row)
+               );
+         this.setState({ rows_complete: tmp_c_rows });
+         let tmp_f_rows = []; // create a filtered dataset
+         this.state.rows.map((row) => row[1] === destination ? tmp_f_rows.push(row) : true);
+         this.setState({ rows: tmp_f_rows })
+      }
    }
 
    componentDidMount() {
@@ -62,7 +88,8 @@ class Departures extends Component {
                      <tr key={i++}>
                         <td className="td_carrier" key={i++}>MBTA</td>
                         <td  className="td_time" key={i++}>{row[5]}</td>
-                        <td  className="td_destination" key={i++}>{row[1]}</td>
+                        <td  className="td_destination" key={i++} 
+                              onClick={this.clickedDestination}>{row[1]}</td>
                         <td  className="td_train" key={i++}>{row[0]}</td>
                         <td  className="td_track" key={i++}>{row[3] ? row[3] : 'TBD'}</td>
                         <td  className="td_status" key={i++}>{row[4]}</td>
