@@ -13,6 +13,8 @@ class App extends Component {
          curr_date: "",
          curr_time: ""
       };
+
+      this.handleStationChange = this.handleStationChange.bind(this);
    }
 
    componentDidMount() {
@@ -27,14 +29,18 @@ class App extends Component {
     clearInterval(this.timerID);
    }
 
-   handleStationChange() {
+   handleStationChange(event) {
+      this.setState({ selectedStation: event.target.value });
    }
 
    tick() {
       var date = new Date();
       const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-      var hour = date.getHours() > 12 ? date.getHours() - 12 : date.getHours(); // check for zero?
+      var hour = date.getHours();
+      hour = hour > 12 ? hour - 12 : hour;
+      hour = hour == 0 ? 12 : hour;
       var minute = date.getMinutes();
+      minute = minute < 10 ? "0" + minute : minute;
       var half = date.getHours() > 11 ? " PM" : " AM";
       var curr_time = hour + ":" + minute + half;
       this.setState({
@@ -55,13 +61,13 @@ class App extends Component {
                   </span>
                   <span className="board_title">
                      <div className="departures_title">Departures</div>
-                     <div>
-                        <select defaultValue={this.state.selectedStation} 
-                        onChange={this.handleStationChange}>
-                            <option value="north">North Station</option>
-                            <option value="south">South Station</option>
-                          </select>
-                     </div>      
+                     <div className="station_select">
+                        <select className="station_select" defaultValue={this.state.selectedStation} 
+                                    onChange={this.handleStationChange}>
+                              <option value="north">North Station</option>
+                              <option value="south">South Station</option>
+                        </select>
+                     </div>
                   </span>
                   <span className="board_detail current_time">
                         CURRENT TIME<br />{this.state.curr_time}

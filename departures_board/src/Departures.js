@@ -8,13 +8,14 @@ class Departures extends Component {
       super(props);
 
       this.state = {
-         selectedStation: props.station,
          json_obj: {},
-         rows: []
+         rows: [],
+         selectedStation: ""
       };
    }
 
-   componentDidMount() {
+   loadFromServer() {
+      this.setState({ selectedStation: this.props.station });
       var request = new XMLHttpRequest();
       request.onreadystatechange = (e) => {
          if (request.readyState !== 4) {
@@ -30,11 +31,18 @@ class Departures extends Component {
             console.warn('error');
          }
       };
-      request.open('GET', 'http://138.197.120.108:4000/api/v1/board/');
+      request.open('GET', 'http://138.197.120.108:4000/api/v1/board?station=' + this.props.station);
       request.send();
    }
 
+   componentDidMount() {
+      this.loadFromServer();
+   }
+
    render() {
+      if ( this.state.selectedStation && this.state.selectedStation !== this.props.station) {
+         this.loadFromServer();
+      }
       var i = 0; // Needs improving but this is just to remove the warning.
       return (
          <table className="departures_table">
@@ -53,11 +61,11 @@ class Departures extends Component {
                this.state.rows.map((row) => 
                      <tr key={i++}>
                         <td className="td_carrier" key={i++}>MBTA</td>
-                        <td  className="td_time" key={i++}>{row[6]}</td>
-                        <td  className="td_destination" key={i++}>{row[2]}</td>
-                        <td  className="td_train" key={i++}>{row[1]}</td>
+                        <td  className="td_time" key={i++}>{row[5]}</td>
+                        <td  className="td_destination" key={i++}>{row[1]}</td>
+                        <td  className="td_train" key={i++}>{row[0]}</td>
                         <td  className="td_track" key={i++}>{row[3] ? row[3] : 'TBD'}</td>
-                        <td  className="td_status" key={i++}>{row[5]}</td>
+                        <td  className="td_status" key={i++}>{row[4]}</td>
                      </tr>)
             }
             </tbody>

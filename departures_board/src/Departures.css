@@ -33,10 +33,14 @@ th {
    color: #fffb8b;
 }
 .td_track {
-   text-align: center;
+   text-align: left;
    padding: 0px 30px;
    color: #fffb8b;
 }
+.th_status {
+   width: 110px;
+}
+
 .td_status {
    text-align: left;
    color: #daf568;
