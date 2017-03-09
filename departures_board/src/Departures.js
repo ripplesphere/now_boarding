@@ -8,18 +8,18 @@ class Departures extends Component {
       super(props);
 
       this.state = {
-         rows_complete: [],
-         rows: [],
-         selectedStation: ""
+         rows: []
       };
 
+      this.rows_complete = [];
+      this.selectedStation = ""; 
       this.clickedDestination= this.clickedDestination.bind(this);
 
    }
 
    loadFromServer() {
-      this.setState({ selectedStation: this.props.station });
-      this.setState({ rows_complete: [] }); // reset this variable
+      this.selectedStation = this.props.station;
+      this.rows_complete = []; // clear this variable
       var request = new XMLHttpRequest();
       request.onreadystatechange = (e) => {
          if (request.readyState !== 4) {
@@ -34,7 +34,8 @@ class Departures extends Component {
             console.warn('error');
          }
       };
-      request.open('GET', 'http://138.197.120.108:4000/api/v1/board?station=' + this.props.station);
+      request.open('GET', 'http://138.197.120.108:4000/api/v1/board?station=' + 
+                             this.props.station);
       request.send();
    }
 
@@ -42,19 +43,19 @@ class Departures extends Component {
    //  else display all the rows (logic is other way around)
    clickedDestination(event) {
       var destination = event.target.outerText;
-      if (this.state.rows_complete.length > 0) {
+      if (this.rows_complete.length > 0) {
          let tmp_c_rows = []; // save complete dataset 
-         this.state.rows_complete.map((row) =>
+         this.rows_complete.map((row) =>
                   tmp_c_rows.push(row)
                );
          this.setState({ rows: tmp_c_rows });
-         this.setState({ rows_complete: [] });
+         this.rows_complete = [];
       } else {
          let tmp_c_rows = []; // save complete dataset 
          this.state.rows.map((row) =>
                   tmp_c_rows.push(row)
                );
-         this.setState({ rows_complete: tmp_c_rows });
+         this.rows_complete = tmp_c_rows;
          let tmp_f_rows = []; // create a filtered dataset
          this.state.rows.map((row) => row[1] === destination ? tmp_f_rows.push(row) : true);
          this.setState({ rows: tmp_f_rows })
@@ -66,7 +67,7 @@ class Departures extends Component {
    }
 
    render() {
-      if ( this.state.selectedStation && this.state.selectedStation !== this.props.station) {
+      if ( this.selectedStation && this.selectedStation !== this.props.station) {
          this.loadFromServer();
       }
       var i = 0; // Needs improving but this is just to remove the warning.
