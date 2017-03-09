@@ -70,7 +70,7 @@ class Departures extends Component {
       if ( this.selectedStation && this.selectedStation !== this.props.station) {
          this.loadFromServer();
       }
-      var i = 0; // Needs improving but this is just to remove the warning.
+      var i = 0;
       return (
          <table className="departures_table">
             <thead>
