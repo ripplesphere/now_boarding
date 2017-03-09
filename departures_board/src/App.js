@@ -57,13 +57,14 @@ class App extends Component {
          <div className="board">
                <div className="header">
                   <span className="board_detail current_date">
-                        {this.state.curr_day}<br />{this.state.curr_date}
+                     {this.state.curr_day}<br />{this.state.curr_date}
                   </span>
                   <span className="board_title">
                      <div className="departures_title">Departures</div>
                      <div className="station_select">
-                        <select className="station_select" defaultValue={this.state.selectedStation} 
-                                    onChange={this.handleStationChange}>
+                        <select className="station_select" 
+                                defaultValue={this.state.selectedStation} 
+                                onChange={this.handleStationChange}>
                               <option value="north">North Station</option>
                               <option value="south">South Station</option>
                         </select>
