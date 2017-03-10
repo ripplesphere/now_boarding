@@ -30,18 +30,18 @@ defmodule ElixirStation.BoardController do
                                              String.to_integer(x) < 10 -> ":0" <> x
                                              true -> ":" <> x end end)
       zl = List.zip([h12, m, h_per])
+      # ^result: [{"7", ":45", " PM"}, ....]
       ft = zl |> Enum.map( fn(x) -> List.to_string(Tuple.to_list(x)) end)
+      # ^result: ["7:45 PM", ....]
       d_limited = Enum.map(departures, fn(x) -> [x.trip, x.destination, x.lateness, x.track, x.status] end)
-      d_tmp = List.zip([d_limited, ft])
-      d_list = d_tmp |> Enum.map( fn(x) -> Tuple.to_list(x) end )
-      d_ready = d_list |> Enum.map( fn(x) -> List.flatten(x) end )
+      # combine the values and the formatted time
+      d_ready = List.zip([d_limited, ft]) |> Enum.map( fn(x) -> Tuple.to_list(x) end ) |> 
+               Enum.map( fn(x) -> List.flatten(x) end )
 
       t_stamp = departures |> Enum.at(0) |> Map.get(:t_stamp)
       # Might format this here but for now sending it to client as is
       ecto_tstamp = DateTime.from_unix!(String.to_integer(t_stamp))
 
-      ready = %{"timestamp" => DateTime.to_naive(ecto_tstamp), "departures" => d_ready}
-      
-      json conn, ready
+      json conn, %{"timestamp" => DateTime.to_naive(ecto_tstamp), "departures" => d_ready}
    end
 end
