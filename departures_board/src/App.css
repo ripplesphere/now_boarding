@@ -1,26 +1,19 @@
-.App {
-}
-
 .board {
-  /* basic styling */
-  background-color: #0e0e0e; /* black board*/
+  background-color: #0e0e0e; 
   width: 700px;
   height: 100%;
   border: 1px solid #555;
-  font-family: Avantgarde, sans-serif; /* Looks like it matches image but not found on mine. */
-  color: #ffffa6; /* yellow text */
-
-  /* flexbox setup */
+  font-family: Avantgarde, sans-serif;
+  color: #ffffa6; 
   display: flex;
   flex-direction: column;
 }
-
 .header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
 }
-
 .board_title {
    display: flex;
    flex-direction: column;
@@ -28,31 +21,38 @@
    font-size: 2.5em;
    color: #9f9a9e;
 }
-
 .station_select {
    font-size: 0.7em;
 }
 select {
    background: #9e9aa4;
 }
-
 .board_detail  {
    padding: 10px;
    font-size: 1.5em;
 }
-
-
 .current_date {
    text-align: left;
 }
-
 .current_time {
    text-align: right;
 }
-
 .board_info {
    display: flex;
    justify-content: center;
 }
-
-
+@media screen and (max-width: 700px) {
+    .header {
+        display: grid;
+        justify-content: left;
+        padding-left: 10px;
+    }
+    .board_detail {
+        display: none;
+    }
+    .board_info {
+       display: grid;
+        justify-content: left;
+        padding-left: 10px
+    }
+}

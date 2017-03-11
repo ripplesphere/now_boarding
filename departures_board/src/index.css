@@ -3,3 +3,9 @@ html,body {
    justify-content: center;
    background-color: #b1afb8;
 }
+@media screen and (max-width: 700px) {
+    html,body {
+        display: grid;
+        justify-content: left;
+    }
+}
